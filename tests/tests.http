@@ -9,8 +9,8 @@ POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-    "name": "John Doer",
-    "number": "1234567890"
+    "name": "John Smith",
+    "number": "000-000-0001"
 }
 
 ### Update a person

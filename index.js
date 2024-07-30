@@ -28,7 +28,7 @@ app.get('/api/persons', (request, response, next) => {
   .catch(error =>next(error))
 })
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
     const body = request.body
     
     if (!body.name || !body.number){
@@ -47,6 +47,14 @@ app.post('/api/persons', (request, response) => {
       response.json(savedPerson)
     })}
   })
+
+app.delete('/api/persons/:id', (request, response, next) => {
+  Person.findByIdAndDelete(request.params.id)
+  .then(result => {
+    response.status(204).end()
+  })
+    .catch(error => next(error))
+})
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {

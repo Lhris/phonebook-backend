@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 const url = process.env.MONGODB_URI
-console.log("url initialized")
+console.log('url initialized')
 
 // mongoose.set('strictQuery',false)
 
-mongoose.connect(url).then(result => {
+mongoose.connect(url).then(() => {
   console.log('MongoDB Connected - Person.js')
 }).catch((error) => {
   console.log('error connecting to MongoDB', error.message)
@@ -20,18 +20,18 @@ const personSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: function (value) {
-        const phoneNumberRegex = /^\d{2,3}-\d+$/;
-        return phoneNumberRegex.test(value);
+        const phoneNumberRegex = /^\d{2,3}-\d+$/
+        return phoneNumberRegex.test(value)
       },
       message: props => `${props.value} is not a valid phone number format. Phone number must be in the format xx-xxxxxxx or xxx-xxxxxxx.`
     }
-}})
+  }})
 
 personSchema.set('toJSON', {
-transform: (document, returnedObject) => {
-  returnedObject.id = returnedObject._id.toString()
-  delete returnedObject._id
-  delete returnedObject.__v
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
   }
 })
 
